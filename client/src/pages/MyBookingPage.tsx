@@ -40,6 +40,7 @@ function MyBookingPage() {
             }
 
             try {
+
                 const response = await fetch(`${API_URL}/bookings/my`, {
                     headers: {
                         Accept: "application/json",
