@@ -53,7 +53,7 @@ interface UpdateTablePositionPayload {
     y: number;
 }
 
-const getAuthHeader = (token: string | null) => {
+const getAuthHeader = (token: string | null): Record<string, string> => {
     if (!token) {
         return {};
     }
