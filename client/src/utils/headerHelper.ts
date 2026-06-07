@@ -1,4 +1,4 @@
-export function getNeptunHeader() {
+export function getNeptunHeader(): Record<string, string> {
     const neptunCode = import.meta.env.VITE_NEPTUN_CODE;
 
     if (!neptunCode) {
@@ -6,6 +6,6 @@ export function getNeptunHeader() {
     }
 
     return {
-        "X-Neptun-Code": neptunCode,
+        "X-Neptun-Code": String(neptunCode),
     };
 }
