@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, isRejected } from "@reduxjs/toolkit";
 import type { RootState } from "../../store/store";
 import type { GameTable, PendingTable } from "../../types/types";
 import {getNeptunHeader} from "../../utils/headerHelper.ts";
@@ -223,9 +223,13 @@ const tablesSlice = createSlice({
                 state.items = state.items.filter((table) => table.id !== action.payload);
             })
             .addMatcher(
-                (action) =>
-                    action.type.startsWith("tables/") &&
-                    action.type.endsWith("/rejected"),
+                isRejected(
+                    fetchTables,
+                    createTable,
+                    updateTableOnServer,
+                    updateTablePositionOnServer,
+                    deleteTableOnServer
+                ),
                 (state, action) => {
                     state.loading = false;
                     state.error = action.error.message ?? "Asztal művelet sikertelen.";
